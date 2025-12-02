@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+</head>
+
+<body style="font-family: Arial; background:#f6f6f6; padding:20px;">
+  <table width="100%" style="max-width:600px; margin:auto; background:white; border-radius:8px; overflow:hidden;">
+    <tr>
+      <td style="background:#4a90e2; color:white; padding:20px; text-align:center; font-size:22px;">
+        ⏰ Task Due Soon
+      </td>
+    </tr>
+
+    <tr>
+      <td style="padding:25px; color:#333; font-size:16px;">
+        <p>Hi <b><%= username %></b>,</p>
+
+        <p>Your task <b>"<%= title %>"</b> is due within 1 hour.</p>
+
+        <div style="margin:20px 0; padding:15px; background:#f0f7ff; border-left:4px solid #4a90e2;">
+          <p><b>Due Date:</b> <%= dueDate %></p>
+        </div>
+
+        <div style="text-align:center;">
+          <a href="<%= appUrl %>"
+             style="background:#4a90e2; color:white; padding:12px 20px; text-decoration:none; border-radius:6px;">
+             View Task
+          </a>
+        </div>
+
+        <p style="margin-top:30px;">Best regards,<br><b>Daily Planner Assistant</b></p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

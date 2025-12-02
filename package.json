@@ -1,0 +1,39 @@
+{
+  "name": "planflow-backend",
+  "version": "1.0.0",
+  "description": "Task management and productivity app backend with AI chatbot, email notifications, and real-time updates",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:studio": "npx prisma studio",
+    "db:push": "npx prisma db push",
+    "db:reset": "npx prisma migrate reset"
+  },
+  "keywords": ["task-management", "productivity", "express", "prisma", "postgresql", "ai-chatbot"],
+  "author": "Your Name",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "4.15",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "groq-sdk": "^0.37.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.11",
+    "openai": "^6.9.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "prisma": "4.15"
+  }
+}

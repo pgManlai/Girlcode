@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+   url      = env("DATABASE_URL")
+   shadowDatabaseUrl = env("SHADOW_DB_URL")
+}
+
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  password      String
+  tasks         Task[]
+  notifications Notification[]
+  chatMessage  ChatMessage[]
+  goals        Goal[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  EXPIRED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskCategory {
+  WORK
+  HEALTH
+  LEARNING
+  PERSONAL
+  OTHER
+}
+
+model Task {
+  id           String         @id @default(cuid())
+  title        String
+  description  String?
+  status       TaskStatus     @default(PENDING)
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String
+  notification Notification[]
+  dueDate      DateTime? 
+  priority     TaskPriority   @default(MEDIUM)
+  category     TaskCategory   @default(OTHER)
+  dueSoonSent   Boolean  @default(false)
+  expiredSent   Boolean  @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+enum NotificationType {
+  TASK_REMINDER
+  CHAT_ALERT
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  user      User             @relation(fields: [userId], references: [id])
+  userId    String
+  task      Task?            @relation(fields: [taskId], references: [id])
+  taskId    String?
+  type      NotificationType @default(TASK_REMINDER)
+  title     String
+  body      String
+  sent      Boolean          @default(false)
+  notifyAt  DateTime
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  message   String
+  response  String?
+  isAI      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Goal {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  title        String
+  description  String?
+  targetValue  Float
+  currentValue Float   @default(0)
+  unit         String
+  items        GoalItem[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model GoalItem {
+  id        String   @id @default(cuid())
+  goal      Goal     @relation(fields: [goalId], references: [id])
+  goalId    String
+  title     String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
