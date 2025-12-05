@@ -4,8 +4,21 @@ import { groq } from "../config/groq.js";
 
 // --- Identify greeting ---
 function isGreeting(text) {
-  const greetings = ["сайн уу", "сайн байна уу", "hello", "hi", "yo", "hey", "сайн байна"];
-  return greetings.some((g) => text.toLowerCase().includes(g));
+  const greetings = [
+    "сайн уу", 
+    "сайн байна уу", 
+    "sainuu", 
+    "sain baina uu", 
+    "sain bainuu",
+    "hello", 
+    "hi", 
+    "yo", 
+    "hey", 
+    "сайн байна",
+    "мэнд",
+    "мэндчил"
+  ];
+  return greetings.some((g) => text.toLowerCase().includes(g.toLowerCase()));
 }
 
 function isTaskRelated(text) {
